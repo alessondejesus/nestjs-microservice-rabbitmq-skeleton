@@ -10,12 +10,12 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @EventPattern('example-event-pattern')
+  @UsePipes(new MicroValidationPipe())
   async getAppExamples(example: CreateValidationPipeDTO): Promise<AppEntity[]> {
     console.log(example);
     return await this.appService.getAppExamples();
   }
 
-  @UsePipes(new MicroValidationPipe())
   @MessagePattern({ cmd: 'sum' })
   accumulate(data: number[]): number {
     console.log('message patternx');
